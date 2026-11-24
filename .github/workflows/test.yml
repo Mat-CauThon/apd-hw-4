@@ -1,0 +1,11 @@
+name: Catinder tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_26.3.app
+      - name: Run tests
+        run: xcodebuild -project Catinder.xcodeproj -scheme Catinder -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath "$RUNNER_TEMP/catinder-derived" -parallel-testing-enabled NO test
